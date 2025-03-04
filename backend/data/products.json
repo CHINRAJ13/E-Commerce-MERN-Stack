@@ -1,0 +1,85 @@
+[
+    {
+        "name": "Apple iPhone 15 Pro",
+        "price": 1299.99,
+        "description": "Experience the new iPhone 15 Pro with an A17 Bionic chip, Dynamic Island, and an advanced camera system.",
+        "ratings": "4.8",
+        "images": [
+            {
+                "image": "/Apple.jpg"
+            },
+            {
+                "image": "/Apple2.jpg"
+            }
+        ],
+        "category": "Mobile Phones",
+        "seller": "Apple Official Store",
+        "stock": 15,
+        "numOfReviews": 15,
+        "reviews": []
+    },
+    {
+        "name": "Samsung Galaxy S23 Ultra",
+        "price": 1199.99,
+        "description": "Samsung Galaxy S23 Ultra with Snapdragon 8 Gen 2, 200MP camera, and S-Pen support.",
+        "ratings": "4.7",
+        "images": [
+            {
+                "image": "/samsung.jpg"
+            }
+        ],
+        "category": "Mobile Phones",
+        "seller": "Samsung Official Store",
+        "stock": 10,
+        "numOfReviews": 9,
+        "reviews": []
+    },
+    {
+        "name": "MacBook Air M2",
+        "price": 1099.00,
+        "description": "Apple MacBook Air with M2 chip, Liquid Retina display, and 18-hour battery life.",
+        "ratings": "4.9",
+        "images": [
+            {
+                "image": "/macBook.jpg"
+            }
+        ],
+        "category": "Laptops",
+        "seller": "Apple Official Store",
+        "stock": 8,
+        "numOfReviews": 10,
+        "reviews": []
+    },
+    {
+        "name": "Sony WH-1000XM5",
+        "price": 399.99,
+        "description": "Sony's best noise-canceling headphones with industry-leading sound quality.",
+        "ratings": "4.6",
+        "images": [
+            {
+                "image": "/sony.jpg"
+            }
+        ],
+        "category": "Headphones",
+        "seller": "Sony Official Store",
+        "stock": 20,
+        "numOfReviews": 12,
+        "reviews": []
+    },
+    {
+        "name": "JBL Flip 6",
+        "price": 129.99,
+        "description": "Portable Bluetooth speaker with deep bass, waterproof design, and 12-hour playtime.",
+        "ratings": "4.5",
+        "images": [
+            {
+                "image": "/jbl.jpg"
+            }
+        ],
+        "category": "Accessories",
+        "seller": "JBL Official Store",
+        "stock": 30,
+        "numOfReviews": 10,
+        "reviews": []
+    }
+]
