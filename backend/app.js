@@ -20,7 +20,12 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(cors({origin: process.env.FRONTEND_URL, credentials: true}));
+let BASE_URL = process.env.FRONTEND_URL;
+if(process.env.NODE_ENV === "production") {
+  BASE_URL = `${req.protocol}://${req.get('host')}`
+}
+
+app.use(cors({origin: BASE_URL, credentials: true}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
