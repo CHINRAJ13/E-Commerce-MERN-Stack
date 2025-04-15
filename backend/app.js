@@ -25,7 +25,7 @@ if(process.env.NODE_ENV === "production") {
   BASE_URL = `${req.protocol}://${req.get('host')}`
 }
 
-app.use(cors({origin: `http://localhost:5173`, credentials: true}));
+app.use(cors({origin: `https://e-commerce-mern-stack-5zkne472q-chinrajs-projects-18fdaff2.vercel.app/`, credentials: true}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
