@@ -8,7 +8,7 @@ const sendToken = ( user, statusCode, res ) => {
     const serialized = cookie.serialize('token', token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'none',
+      sameSite: 'lax',
       path: '/',
       maxAge: 60 * 60 * 24 * 7
     });
@@ -21,7 +21,7 @@ const sendToken = ( user, statusCode, res ) => {
         expires: new Date(Date.now() + process.env.COOKIE_EXPIRE_TIME *24 *60 *60 *1000),
         httpOnly: true,
         secure: true,
-        sameSite: "none"
+        sameSite: "lax"
     }
 
     res.status(statusCode)
