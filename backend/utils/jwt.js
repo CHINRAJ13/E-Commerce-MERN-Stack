@@ -1,7 +1,20 @@
+const cookie = require('cookie');
+
 const sendToken = ( user, statusCode, res ) => {
 
     // Creating the token
     const token = user.getJwtToken();
+
+    const serialized = cookie.serialize('token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7
+    });
+    
+    res.setHeader('Set-Cookie', serialized);
+
 
     // setting cookies
     const options = {
