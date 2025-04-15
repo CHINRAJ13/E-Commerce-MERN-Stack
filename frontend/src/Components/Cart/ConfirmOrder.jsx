@@ -39,46 +39,65 @@ export const ConfirmOrder = () => {
         <MetaData title={'Confirm Order'} />
         <div className="container">
         <CheckOutSteps shipping confirmOrder />
-        <div className="shipInfo my-2">
-            <h4>Shipping Info</h4>
-            <div className="ms-5">
-                <p><b>Name: </b>{user.name}</p>
-                <p><b>Phone: </b>{shippingInfo.phoneNo}</p>
-                <p><b>Address: </b>{shippingInfo.address}, {shippingInfo.city}, {shippingInfo.state}, {shippingInfo.country} - {shippingInfo.postalCode}</p>
-            </div>
-        </div>
-        <hr />
+        <div className="container my-3">
 
-        <div className="cartItem my-2">
-            {cartItems.map(item => <div key={item.product} className="row">
-                <div className="col-6 col-md-4">
-                    <img src={item.image} alt="Product" className="d-block w-50" />
-                </div>
-                <div className="col-6 col-md-4">
-                    <h5 >{item.name}</h5>
-                </div>
-                <div className="col-6 col-md-4">
-                    <h5>{item.quantity} x {item.price} = $ {item.quantity * item.price}</h5>
-                </div>
-            </div>)}
-            
-        </div>
-        <hr />
+  {/* Shipping Info */}
+  <div className="border rounded p-3 mb-4 shadow-sm">
+    <h4 className="mb-3">Shipping Info</h4>
+    <div className="ps-3">
+      <p><strong>Name:</strong> {user.name}</p>
+      <p><strong>Phone:</strong> {shippingInfo.phoneNo}</p>
+      <p><strong>Address:</strong> {`${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.country} - ${shippingInfo.postalCode}`}</p>
+    </div>
+  </div>
 
-        <div className="orderSummary border rounded w-50 p-3 my-3">
-            
-            <h4>Order Summary</h4>
-            <hr />
-            <div className="mx-4">
-                <span className="float-start"><b>Subtotal: &nbsp;&nbsp;</b></span><span className="float-end"> $ {itemsPrice}</span><br />
-                <span className="float-start"><b>Shipping: &nbsp;&nbsp;</b></span><span className="float-end">$ {shippingPrice}</span><br />
-                <span className="float-start"><b>Tax: &nbsp;&nbsp;</b></span><span className="float-end">$ {taxPrice}</span><br />
-                <hr />
-                <span className="float-start"><b>Total: &nbsp;&nbsp;</b></span><span className=" float-end">$ {totalPrice}</span><br />
-                <hr />
-                <button className="btn btn-primary text-center" onClick={paymentProcess} >Procced to Payment</button>
-            </div>
+  {/* Cart Items */}
+  <div className="border rounded p-3 mb-4 shadow-sm">
+    <h4 className="mb-3">Cart Items</h4>
+    {cartItems.map((item) => (
+      <div key={item.product} className="row align-items-center mb-3">
+        <div className="col-4 col-md-2">
+          <img src={item.image} alt={item.name} className="img-fluid rounded" />
         </div>
+        <div className="col-8 col-md-6">
+          <h6 className="mb-0">{item.name}</h6>
+        </div>
+        <div className="col-12 col-md-4 mt-2 mt-md-0 text-md-end">
+          <strong>{item.quantity} x ${item.price} = ${item.quantity * item.price}</strong>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  {/* Order Summary */}
+  <div className="border rounded p-4 mx-auto shadow-sm" style={{ maxWidth: '500px' }}>
+    <h4 className="mb-3">Order Summary</h4>
+    <div className="d-flex justify-content-between mb-2">
+      <span><strong>Subtotal:</strong></span>
+      <span>${itemsPrice}</span>
+    </div>
+    <div className="d-flex justify-content-between mb-2">
+      <span><strong>Shipping:</strong></span>
+      <span>${shippingPrice}</span>
+    </div>
+    <div className="d-flex justify-content-between mb-2">
+      <span><strong>Tax:</strong></span>
+      <span>${taxPrice}</span>
+    </div>
+    <hr />
+    <div className="d-flex justify-content-between mb-3">
+      <span><strong>Total:</strong></span>
+      <span><strong>${totalPrice}</strong></span>
+    </div>
+    <div className="text-center">
+      <button className="btn btn-primary w-100" onClick={paymentProcess}>
+        Proceed to Payment
+      </button>
+    </div>
+  </div>
+
+</div>
+
     </div>
         </>
     )

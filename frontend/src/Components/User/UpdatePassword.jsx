@@ -46,27 +46,46 @@ export const UpdatePassword = () => {
     return (
         <>
             <MetaData title={'Update Profile'} />
-            <div className="d-flex justify-content-center my-5">
-                <form onSubmit={handleSubmit}>
-                    <div className="card" style={{ width: "30rem" }}>
-                        <div className="card-body">
-                            <h5 className="text-center">UPDATE PASSWORD</h5>
-                            <hr />
+            <div className="container my-5">
+                <div className="row justify-content-center">
+                    <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+                        <form className="border p-4 shadow rounded" onSubmit={handleSubmit}>
+                            <h5 className="text-center mb-4">UPDATE PASSWORD</h5>
+
                             <div className="form-floating mb-3">
-                                <input type="password" className="form-control" id="oldpass" placeholder="password" name="email" onChange={(e) => setOldPassword(e.target.value)} />
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    id="oldpass"
+                                    placeholder="Old Password"
+                                    onChange={(e) => setOldPassword(e.target.value)}
+                                    required
+                                />
                                 <label htmlFor="oldpass">Old Password</label>
                             </div>
+
                             <div className="form-floating mb-3">
-                                <input type="password" className="form-control" id="pass" placeholder="Password" name="name" onChange={(e) => setPassword(e.target.value)} />
-                                <label htmlFor="pass">Password</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    id="newpass"
+                                    placeholder="New Password"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                                <label htmlFor="newpass">New Password</label>
                             </div>
-                            <div className="d-flex justify-content-center mb-3">
-                                <button className="btn btn-primary" type="submit" >Change Password</button>
+
+                            <div className="d-grid my-4">
+                                <button className="btn btn-primary" type="submit">
+                                    Change Password
+                                </button>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
+
         </>
     )
 }

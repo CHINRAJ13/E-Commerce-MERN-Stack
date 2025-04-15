@@ -8,11 +8,11 @@ import { Loading } from "../Layouts/Loading";
 
 export const OrderDetail = () => {
 
-    const { orderDetail={}, loading } = useSelector(state => state.orderState);
+    const { orderDetail = {}, loading } = useSelector(state => state.orderState);
     const dispatch = useDispatch();
     const { id } = useParams();
 
-    const { shippingInfo={}, user={}, orderStatus="Processing", orderItems=[], totalPrice=0, paymentInfo={} } = orderDetail;
+    const { shippingInfo = {}, user = {}, orderStatus = "Processing", orderItems = [], totalPrice = 0, paymentInfo = {} } = orderDetail;
     const isPaid = paymentInfo && paymentInfo.status === "succeeded" ? true : false;
 
     useEffect(() => {
@@ -24,61 +24,64 @@ export const OrderDetail = () => {
     return (
         <>
             <MetaData title={'Order Detail'} />
-            <div className="container">
-                <h1 className="my-5">Order # {orderDetail._id}</h1>
-                <div className="container mx-5">
+            <div className="container my-5">
+                <h1 className="text-center mb-5">Order # {orderDetail._id}</h1>
+
+                <div className="px-md-5">
 
                     {/* Shipping Info */}
-                    <div className="shipInfo my-2">
-                        <h3>Shipping Info</h3>
-                        <div className="ms-5 my-3">
-                            <p><b>Name: </b>{user.name}</p>
-                            <p><b>Phone: </b>{shippingInfo.phoneNo}</p>
-                            <p><b>Address: </b>{shippingInfo.address}, {shippingInfo.city}, {shippingInfo.country} - {shippingInfo.postalCode}</p>
-                            <p><b>Amount: </b>{totalPrice}</p>
+                    <div className="mb-4 border rounded p-4 shadow-sm">
+                        <h4 className="mb-3">Shipping Info</h4>
+                        <div className="ps-3">
+                            <p><strong>Name:</strong> {user.name}</p>
+                            <p><strong>Phone:</strong> {shippingInfo.phoneNo}</p>
+                            <p><strong>Address:</strong> {`${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.country} - ${shippingInfo.postalCode}`}</p>
+                            <p><strong>Amount:</strong> ${totalPrice}</p>
                         </div>
                     </div>
-                    <hr />
 
-                    {/* Payment */}
-                    <div className="payment">
-                        <h3>Payment</h3>
-                        <h4 className="ps-5 my-3" style={isPaid ? { color: 'green' } : { color: 'red' }}>{isPaid ? 'PAID' : 'NOT PAID'}</h4>
+                    {/* Payment Info */}
+                    <div className="mb-4 border rounded p-4 shadow-sm">
+                        <h4 className="mb-3">Payment</h4>
+                        <h5 className="ps-3" style={{ color: isPaid ? 'green' : 'red' }}>
+                            {isPaid ? 'PAID' : 'NOT PAID'}
+                        </h5>
                     </div>
-                    <hr />
 
                     {/* Order Status */}
-                    <div className="orderStatus">
-                        <h3>Order Status</h3>
-                        <h4 className="ps-5 my-3" style={orderStatus && orderStatus.includes('Delivered') ? { color: 'green' } : { color: 'red' }}>{orderStatus}</h4>
+                    <div className="mb-4 border rounded p-4 shadow-sm">
+                        <h4 className="mb-3">Order Status</h4>
+                        <h5 className="ps-3" style={{ color: orderStatus?.includes('Delivered') ? 'green' : 'red' }}>
+                            {orderStatus}
+                        </h5>
                     </div>
-                    <hr />
 
                     {/* Order Items */}
-                    <div className="cartItem my-2">
-                        <h3>Order Items</h3>
-                        {orderItems && orderItems.map(item => (
-                            <div key={item._id} className="row my-3">
-                                <div className="col-6 col-md-3">
-                                    <img src={item.image} alt={item.image} className="d-block w-50" />
+                    <div className="mb-4 border rounded p-4 shadow-sm">
+                        <h4 className="mb-4">Order Items</h4>
+                        {orderItems?.map(item => (
+                            <div key={item._id} className="row align-items-center mb-3">
+                                <div className="col-6 col-md-2">
+                                    <img src={item.image} alt={item.name} className="img-fluid rounded" />
                                 </div>
-                                <div className="col-6 col-md-3">
-                                    <Link to={`/${item.product}`} className="h5 text-decoration-none d-block text-dark">{item.name}</Link>
+                                <div className="col-6 col-md-4">
+                                    <Link to={`/${item.product}`} className="text-dark text-decoration-none h6">
+                                        {item.name}
+                                    </Link>
                                 </div>
-                                <div className="col-6 col-md-3">
-                                    <h5> ${item.price} </h5>
+                                <div className="col-6 col-md-3 mt-2 mt-md-0">
+                                    <h6 className="mb-0">${item.price}</h6>
                                 </div>
-                                <div className="col-6 col-md-3">
-                                    <h5> {item.quantity} Piece(s) </h5>
+                                <div className="col-6 col-md-3 mt-2 mt-md-0">
+                                    <h6 className="mb-0">{item.quantity} Piece(s)</h6>
                                 </div>
                             </div>
-                        )
-
-                        )}
-
+                        ))}
                     </div>
+
                 </div>
             </div>
+
         </>
     )
 }

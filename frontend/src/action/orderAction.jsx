@@ -1,6 +1,9 @@
 import { adminOrdersFail, adminOrdersRequest, adminOrdersSuccess, createOrderFail, createOrderRequest, createOrderSuccess, deleteOrderFail, deleteOrderRequest, deleteOrderSuccess, orderDetailFail, orderDetailRequest, orderDetailSuccess, updateOrderFail, updateOrderRequest, updateOrderSuccess, userOrdersFail, userOrdersRequest, userOrdersSuccess } from '../slice/orderSlice'
 import axios from 'axios'
 
+const BackendUrl = `https://e-commerce-mern-stack-6a10.onrender.com`;
+
+axios.defaults.withCredentials = true;
 
 export const createOrder = (order) => async (dispatch) => {
     try {
@@ -8,7 +11,7 @@ export const createOrder = (order) => async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        const { data } = await axios.post(`http://localhost:4000/order/new`, order, config);
+        const { data } = await axios.post(`${BackendUrl}/order/new`, order, config);
         dispatch(createOrderSuccess(data));
     } catch (error) {
         dispatch(createOrderFail(error.response.data.message));
@@ -22,7 +25,7 @@ export const userOrders = async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        const { data } = await axios.get(`http://localhost:4000/order/myorders/:id`,config);
+        const { data } = await axios.get(`${BackendUrl}/order/myorders/:id`,config);
         dispatch(userOrdersSuccess(data));
     } catch (error) {
         console.log(error);
@@ -38,7 +41,7 @@ export const getOrderDetail = (id) => async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        const { data } = await axios.get(`http://localhost:4000/order/${id}`,config);
+        const { data } = await axios.get(`${BackendUrl}/order/${id}`,config);
         dispatch(orderDetailSuccess(data));
     } catch (error) {
         // console.log(error);
@@ -53,7 +56,7 @@ export const getAdminOrders = async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        const { data } = await axios.get(`http://localhost:4000/order/allorders/:id`,config);
+        const { data } = await axios.get(`${BackendUrl}/order/allorders/:id`,config);
         dispatch(adminOrdersSuccess(data));
     } catch (error) {
         // console.log(error);
@@ -69,7 +72,7 @@ export const deleteOrder = (id) => async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        const { data } = await axios.delete(`http://localhost:4000/order/delete/${id}`,config);
+        const { data } = await axios.delete(`${BackendUrl}/order/delete/${id}`,config);
         dispatch(deleteOrderSuccess(data));
     } catch (error) {
         // console.log(error);
@@ -85,7 +88,7 @@ export const updateOrder = (id, orderData) => async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        const { data } = await axios.put(`http://localhost:4000/order/update/${id}`, orderData, config);
+        const { data } = await axios.put(`${BackendUrl}/order/update/${id}`, orderData, config);
         dispatch(updateOrderSuccess(data));
     } catch (error) {
         // console.log(error);

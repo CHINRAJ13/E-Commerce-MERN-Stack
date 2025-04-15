@@ -69,34 +69,72 @@ export const UpdateProfile = () => {
     return (
         <>
             <MetaData title={'Update Profile'} />
-            <div className="d-flex justify-content-center my-5">
-                <form onSubmit={handleSubmit}>
-                    <div className="card" style={{ width: "30rem" }}>
-                        <div className="card-body">
-                            <h5 className="text-center">UPDATE PROFILE</h5>
-                            <hr />
+            <div className="container my-5">
+                <div className="row justify-content-center">
+                    <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+                        <form className="border p-4 shadow rounded" onSubmit={handleSubmit}>
+                            <h5 className="text-center mb-4">UPDATE PROFILE</h5>
+
                             <div className="form-floating mb-3">
-                                <input type="email" className="form-control" id="email" placeholder="name@example.com" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    id="email"
+                                    placeholder="name@example.com"
+                                    name="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
                                 <label htmlFor="email">Email address</label>
                             </div>
+
                             <div className="form-floating mb-3">
-                                <input type="text" className="form-control" id="name" placeholder="Name" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="name"
+                                    placeholder="Name"
+                                    name="name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    required
+                                />
                                 <label htmlFor="name">Full Name</label>
                             </div>
+
                             <div className="mb-3">
-                                <label htmlFor="formFile" className="form-label text-secondary border p-2 w-100 rounded">Avatar</label>
-                                <input className="form-control d-none" type="file" id="formFile" name='avatar' onChange={changeAvatar} />
+                                <label htmlFor="formFile" className="form-label text-secondary border p-2 w-100 rounded">
+                                    Avatar
+                                </label>
+                                <input
+                                    className="form-control d-none"
+                                    type="file"
+                                    id="formFile"
+                                    name="avatar"
+                                    onChange={changeAvatar}
+                                />
                                 <div>
-                                    <img src={avatarPreview} alt="avatar" height='50' width='50' style={{ borderRadius: '50px' }} />
+                                    <img
+                                        src={avatarPreview}
+                                        alt="avatar"
+                                        height="50"
+                                        width="50"
+                                        style={{ borderRadius: '50px' }}
+                                    />
                                 </div>
                             </div>
-                            <div className="d-flex justify-content-center mb-3">
-                                <button className="btn btn-primary" type="submit" >Update</button>
+
+                            <div className="d-grid my-4">
+                                <button className="btn btn-primary" type="submit">
+                                    Update
+                                </button>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
+
         </>
     )
 }

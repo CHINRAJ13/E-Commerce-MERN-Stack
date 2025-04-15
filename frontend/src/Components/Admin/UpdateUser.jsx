@@ -22,10 +22,10 @@ export const UpdateUser = () => {
     const [role, setRole] = useState('');
 
     const handleSubmit = (e) => {
-            e.preventDefault();
-            const formData = {name: name, email: email, role: role};            
-            dispatch(updateUser(id, formData));
-        }
+        e.preventDefault();
+        const formData = { name: name, email: email, role: role };
+        dispatch(updateUser(id, formData));
+    }
 
     useEffect(() => {
         if (isUserUpdated) {
@@ -68,31 +68,63 @@ export const UpdateUser = () => {
                 </div>
                 <div className="col-12 col-md-10">
                     {/* <h3>Product List</h3> */}
-                    <div className="row d-flex justify-content-center align-items-center my-5">
-                        <div className="col-5 shadow-lg border rounded px-3">
-                            <form onSubmit={handleSubmit} >
-                                <h3 className="text-center pb-2">Update User</h3>
-                                {/* Name of the User */}
-                                <div className="form-floating mb-2">
-                                    <input type="text" className="form-control" id="name" placeholder="Name" name='name' value={name} onChange={(e) => setName(e.target.value)} />
+                    <div className="row justify-content-center align-items-center my-5">
+                        <div className="col-md-6 col-lg-5 shadow-sm p-4 rounded border bg-white">
+                            <form onSubmit={handleSubmit}>
+                                <h3 className="text-center mb-4 text-primary fw-bold">Update User</h3>
+
+                                {/* User Name */}
+                                <div className="form-floating mb-3">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="name"
+                                        placeholder="Name"
+                                        name="name"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                    />
                                     <label htmlFor="name">Name</label>
                                 </div>
-                                {/* Email of the User */}
-                                <div className="form-floating mb-2">
-                                    <input type="email" className="form-control" id="email" placeholder="Email" name='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+
+                                {/* Email */}
+                                <div className="form-floating mb-3">
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        id="email"
+                                        placeholder="Email"
+                                        name="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
                                     <label htmlFor="email">Email</label>
                                 </div>
-                                {/* Role of the User */}
-                                <div className="form-floating mb-2">
-                                    <select disabled={user._id === authUser._id} className="form-select" id="role" value={role} onChange={(e) => setRole(e.target.value)}>
-                                        <option value='admin'>Admin</option>
-                                        <option value='user'>User</option>
+
+                                {/* Role */}
+                                <div className="form-floating mb-3">
+                                    <select
+                                        disabled={user._id === authUser._id}
+                                        className="form-select"
+                                        id="role"
+                                        value={role}
+                                        onChange={(e) => setRole(e.target.value)}
+                                    >
+                                        <option value="admin">Admin</option>
+                                        <option value="user">User</option>
                                     </select>
                                     <label htmlFor="role">Role</label>
                                 </div>
 
-                                <div className="d-grid col-3 mx-auto my-2">
-                                    <button className="btn btn-primary text-center" disabled={loading} type="submit" >Update</button>
+                                {/* Submit Button */}
+                                <div className="d-grid mt-4">
+                                    <button
+                                        className="btn btn-primary fw-bold"
+                                        disabled={loading}
+                                        type="submit"
+                                    >
+                                        {loading ? 'Updating...' : 'Update'}
+                                    </button>
                                 </div>
                             </form>
                         </div>

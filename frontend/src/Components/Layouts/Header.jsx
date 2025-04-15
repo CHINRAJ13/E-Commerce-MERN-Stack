@@ -5,10 +5,10 @@ import { DropdownButton, Dropdown, Image } from 'react-bootstrap'
 import { logout } from "../../action/userAction";
 
 
-export const Header =() => {
+export const Header = () => {
 
-    const { isAuthenticated, user} = useSelector(state => state.authState);
-    const { items:cartItems } = useSelector(state => state.cartState);
+    const { isAuthenticated, user } = useSelector(state => state.authState);
+    const { items: cartItems } = useSelector(state => state.cartState);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -17,36 +17,72 @@ export const Header =() => {
     }
 
     return (
-        <header className="bg-primary py-1">
-            <nav className="d-flex justify-content-around align-items-center px-4">
-                <div className=""  onClick={() => navigate('/')}>
-                    <img src="/RajCart_logo.png" alt="MC Cart" className="rounded" height={50} />
+        <header className="bg-primary py-2 shadow-sm sticky-top">
+            <nav className="container d-flex justify-content-between align-items-center">
+                {/* Logo */}
+                <div style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
+                    <img src="/RajCart_logo.png" alt="RajCart" className="rounded" height={50} />
                 </div>
-                <Search />
-                <div className="d-flex align-items-center gap-2">
+
+                {/* Search Bar */}
+                <div>
+                    <Search />
+                </div>
+
+                {/* User & Cart */}
+                <div className="d-flex align-items-center gap-3">
                     {isAuthenticated ? (
-                        <Dropdown className="d-inline" style={{paddingTop: '0'}}>
-                            <Dropdown.Toggle className="d-flex align-items-center gap-2" variant="default text-light" id="dropdown-basic">
-                                <figure className="d-flex">
-                                    <Image src={user.avatar} alt="Avatar" className="mt-3" style={{borderRadius: '50%'}} width={40} height={40} />
+                        <Dropdown align="end">
+                            <Dropdown.Toggle
+                                className="d-flex align-items-center gap-2 bg-transparent border-0 text-white"
+                                id="dropdown-user"
+                            >
+                                <figure className="mb-0">
+                                    <Image
+                                        src={user.avatar}
+                                        alt="Avatar"
+                                        className="border border-light"
+                                        style={{ borderRadius: '50%', objectFit: 'cover' }}
+                                        width={40}
+                                        height={40}
+                                    />
                                 </figure>
-                                <span>{user.name}</span>
+                                <span className="fw-semibold">{user.name}</span>
                             </Dropdown.Toggle>
+
                             <Dropdown.Menu>
-                                {user.role === 'admin' && <Dropdown.Item className="text-dark" onClick={() => navigate('admin/dashboard')}>Dashboard</Dropdown.Item> }
-                                <Dropdown.Item className="text-dark" onClick={() => navigate('/myprofile')}>Profile</Dropdown.Item>
-                                <Dropdown.Item className="text-dark" onClick={() => navigate('/orders')}>Orders</Dropdown.Item>
-                                <Dropdown.Item className="text-danger" onClick={handleLogout}>Logout</Dropdown.Item>
+                                {user.role === 'admin' && (
+                                    <Dropdown.Item onClick={() => navigate('/admin/dashboard')}>
+                                        Dashboard
+                                    </Dropdown.Item>
+                                )}
+                                <Dropdown.Item onClick={() => navigate('/myprofile')}>Profile</Dropdown.Item>
+                                <Dropdown.Item onClick={() => navigate('/orders')}>Orders</Dropdown.Item>
+                                <Dropdown.Item className="text-danger" onClick={handleLogout}>
+                                    Logout
+                                </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     ) : (
-                        <button className="btn btn-warning" onClick={() => navigate('/login')}>Login</button>
+                        <button className="btn btn-warning px-3 fw-semibold" onClick={() => navigate('/login')}>
+                            Login
+                        </button>
                     )}
-                    <div className="text-light" style={{cursor: 'pointer'}} onClick={() => navigate('/cart')}>Cart 
-                        <span className="bg-warning text-dark px-2 mx-2 py-1 rounded">{cartItems.length}</span>
-                        </div>
+
+                    {/* Cart */}
+                    <div
+                        className="text-white position-relative fw-semibold"
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => navigate('/cart')}
+                    >
+                        Cart
+                        <span className="badge bg-warning text-dark ms-2">
+                            {cartItems.length}
+                        </span>
+                    </div>
                 </div>
             </nav>
         </header>
+
     )
 }

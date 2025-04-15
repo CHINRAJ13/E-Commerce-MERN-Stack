@@ -37,15 +37,13 @@ export const ProductSearch = () => {
 
             <h1>Search Products</h1>
             <div className="container my-3">
-                <div className="row g-4 px-5">
-                    {/* Product 1 */}
-                    {products && products.map(product => (
-                        <div className="col-12 col-md-4 col-lg-3" key={product._id}>
-                            <div className="card">
-                                <img src={product.images[0].image} className="card-img-top p-2" style={{ height: '200px', width: '100%', objectFit: 'contain' }} alt="..." />
-                                <div className="card-body">
-                                    <h5 className="card-title" style={{ cursor: 'pointer' }} onClick={() => navigate(`/${product._id}`)}>{product.name}</h5>
-                                    <p>{[...Array(5)].map((star, index) => (
+            <div className="row row-cols-2 row-cols-md-4 g-5 px-5 mt-3">
+                    {products && products.map((product) =><div className="col" key={product._id}>
+                        <div className="border rounded shadow d-flex flex-column justify-content-center p-3 h-100">
+                            <img src={product.images[0].image} className="img-fluid mb-2" alt="" />
+                            <div>
+                                <h5  onClick={() => navigate(`/${product._id}`)}>{product.name}</h5>
+                                <p>{[...Array(5)].map((star, index) => (
                                         <i
                                             key={index}
                                             className={
@@ -53,14 +51,15 @@ export const ProductSearch = () => {
                                             }
                                             style={{ color: '#ffc107' }} // Yellow for filled stars
                                         ></i>
-                                    ))} <span>({product.numOfReviews} Reviews)</span></p>
-
-                                    <p className="h5">$ {product.price}</p>
-                                    <button className="btn btn-primary" onClick={() => navigate(`/${product._id}`)}>View Details</button>
+                                    ))} </p>
+                                    <p><span>({product.numOfReviews} Reviews)</span></p>
+                                <p className="h5">$ {product.price}</p>
+                                <div className="">
+                                    <button className="btn btn-primary"  onClick={() => navigate(`/${product._id}`)}>View Details</button>
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    </div>)}
                 </div>
 
                 

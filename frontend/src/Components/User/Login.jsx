@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearAuthError, login } from "../../action/userAction";
 import { toast } from 'react-toastify'
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Axios from "axios";
+// import Axios from "axios";
 
 
 export const Login = () => {
@@ -17,7 +17,7 @@ export const Login = () => {
     const location = useLocation();
 
 
-    Axios.defaults.withCredentials = true;
+
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(login(email, password));
@@ -34,10 +34,10 @@ export const Login = () => {
         }
 
         if (error) {
-            toast(`${error}`, {
+            toast.error(error, {
+                toastId: "loginError",
                 position: "top-center",
                 theme: 'dark',
-                type: 'error',
                 onOpen: () => { dispatch(clearAuthError) }
             });
             return
@@ -47,30 +47,57 @@ export const Login = () => {
     return (
         <>
             <MetaData title={'Login Page'} />
-            <div className="d-flex justify-content-center my-5">
-                <form onSubmit={handleSubmit}>
-                    <div className="card" style={{ width: "30rem" }}>
-                        <div className="card-body">
-                            <h5 className="text-center">LOG IN</h5>
-                            <hr />
+            <div className="container my-5">
+                <div className="row justify-content-center">
+                    <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+                        <form className="border p-4 shadow rounded" onSubmit={handleSubmit}>
+                            <h5 className="text-center mb-4">LOG IN</h5>
+
                             <div className="form-floating mb-3">
-                                <input type="email" className="form-control" id="email" placeholder="name@example.com" onChange={(e) => setEmail(e.target.value)} />
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    id="email"
+                                    placeholder="name@example.com"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
                                 <label htmlFor="email">Email address</label>
                             </div>
+
                             <div className="form-floating mb-2">
-                                <input type="password" className="form-control" id="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    id="password"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
                                 <label htmlFor="password">Password</label>
-                                <Link to={"/password/forgot"} className="float-end">Forgot Password?</Link>
+                                <div className="text-end mt-1">
+                                    <Link to="/password/forgot" className="small">Forgot Password?</Link>
+                                </div>
                             </div>
-                            <br />
-                            <div className="d-flex justify-content-center mb-3">
-                                <button className="btn btn-primary" type="submit" disabled={loading}>Login</button>
+
+                            <div className="d-grid my-4">
+                                <button className="btn btn-primary" type="submit" disabled={loading}>
+                                    {loading ? 'Logging in...' : 'Login'}
+                                </button>
                             </div>
-                            <p className="text-center">New user? <Link to={"/register"}>Register</Link></p>
-                        </div>
+
+                            <p className="text-center mb-0">
+                                New user? <Link to="/register">Register</Link>
+                            </p>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
+
+            
+
         </>
     )
 }

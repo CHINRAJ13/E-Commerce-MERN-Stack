@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { MetaData } from "../Layouts/MetaData"
 import { clearAuthError, resetPassword } from "../../action/userAction";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
@@ -47,27 +47,52 @@ export const ResetPassword = () => {
     return (
         <>
             <MetaData title={'Reset Password'} />
-            <div className="d-flex justify-content-center my-5">
-                <form onSubmit={handleSubmit}>
-                    <div className="card" style={{ width: "30rem" }}>
-                        <div className="card-body">
-                            <h5 className="text-center">RESET PASSWORD</h5>
-                            <hr />
+            <div className="container my-5">
+                <div className="row justify-content-center">
+                    <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+                        <form className="border p-4 shadow rounded" onSubmit={handleSubmit}>
+                            <h5 className="text-center mb-4">RESET PASSWORD</h5>
+
                             <div className="form-floating mb-3">
-                                <input type="password" className="form-control" id="pass" placeholder="password" name="pass" onChange={(e) => setPassword(e.target.value)} />
-                                <label htmlFor="pass">Password</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    id="pass"
+                                    placeholder="Password"
+                                    name="pass"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                                <label htmlFor="pass">New Password</label>
                             </div>
+
                             <div className="form-floating mb-3">
-                                <input type="password" className="form-control" id="cpass" placeholder="Password" name="cpass" onChange={(e) => setConfirmPassword(e.target.value)} />
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    id="cpass"
+                                    placeholder="Confirm Password"
+                                    name="cpass"
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    required
+                                />
                                 <label htmlFor="cpass">Confirm Password</label>
                             </div>
-                            <div className="d-flex justify-content-center mb-3">
-                                <button className="btn btn-primary" type="submit" disabled={loading}>Set Password</button>
+
+                            <div className="d-grid my-4">
+                                <button className="btn btn-primary" type="submit" disabled={loading}>
+                                    {loading ? 'Setting...' : 'Set Password'}
+                                </button>
                             </div>
-                        </div>
+
+                            <p className="text-center mb-0">
+                                Back to <Link to="/login">Login</Link>
+                            </p>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
+
         </>
     )
 }

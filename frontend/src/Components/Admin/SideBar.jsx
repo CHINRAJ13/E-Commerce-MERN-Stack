@@ -11,11 +11,11 @@ export const Sidebar = () => {
     return (
         <>
             <div>
-                <nav className="bg-primary vh-100 p-3" style={{ width: "170px" }}>
-                    <ul className="navbar-nav gap-3">
+                <nav className="bg-primary p-3" style={{ maxWidth: "100%", height: '120vh' }}>
+                    <ul className="navbar-nav gap-5">
                         <li className="nav-item">
                             <Link to={`/admin/dashboard`}  href="#" className="h4 text-light d-block" style={{ textDecoration: "none" }}>
-                                <i className="fa-solid fa-home me-2"></i>Dashboard
+                                <i className="fa-solid fa-home me-2"></i>Dash board
                             </Link>
                         </li>
 

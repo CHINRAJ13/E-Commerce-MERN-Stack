@@ -14,7 +14,7 @@ import { ProductReview } from "./ProductReview";
 export const ProductDetail = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { product={}, loading, error, isReviewSubmitted } = useSelector(state => state.productState);
+    const { product = {}, loading, error, isReviewSubmitted } = useSelector(state => state.productState);
     const { user } = useSelector(state => state.authState);
     const [quantity, setQuantity] = useState(1);
     const [show, setShow] = useState(false);
@@ -68,7 +68,7 @@ export const ProductDetail = () => {
             return;
         }
 
-        if(!product._id || isReviewSubmitted) {
+        if (!product._id || isReviewSubmitted) {
             dispatch(getProduct(id));
         }
 
@@ -81,110 +81,139 @@ export const ProductDetail = () => {
     return (
         <>
             <div className="container">
-
                 {product && (
                     <div className="row my-4">
                         <MetaData title={product.name} />
-                        <div className="col-md-5 col-sm-12">
-                            <Carousel pause='hover'>
-                                {product.images && product.images.map(image =>
+
+                        {/* Product Images */}
+                        <div className="col-lg-5 col-md-6 col-sm-12 mb-4">
+                            <Carousel pause="hover">
+                                {product.images?.map(image => (
                                     <Carousel.Item key={image._id}>
-                                        <img src={image.image} alt={product.name} height={500} width={500} className="d-block w-100" />
+                                        <img
+                                            src={image.image}
+                                            alt={product.name}
+                                            className="d-block w-100 rounded shadow"
+                                            height={500}
+                                            style={{ objectFit: "cover" }}
+                                        />
                                     </Carousel.Item>
-                                )}
+                                ))}
                             </Carousel>
                         </div>
-                        <div className=" col-md-5 col-sm-12 mx-2">
-                            <div>
-                                <h2>{product.name}</h2>
-                                <p><b>ID: </b>{product._id}</p>
-                                <hr />
 
-                                <p>{[...Array(5)].map((star, index) => (
+                        {/* Product Details */}
+                        <div className="col-lg-6 col-md-6 col-sm-12 mx-md-2">
+                            <h2>{product.name}</h2>
+                            <p><b>ID:</b> {product._id}</p>
+                            <hr />
+
+                            {/* Ratings */}
+                            <p className="mb-1">
+                                {[...Array(5)].map((_, index) => (
                                     <i
                                         key={index}
-                                        className={
-                                            index < parseInt(product.ratings) ? 'bi bi-star-fill' : 'bi bi-star'
-                                        }
-                                        style={{ color: '#ffc107' }} // Yellow for filled stars
-                                    ></i>
-                                ))} <span>({product.numOfReviews} Reviews)</span></p>
+                                        className={index < Math.round(product.ratings) ? "bi bi-star-fill" : "bi bi-star"}
+                                        style={{ color: "#ffc107" }}
+                                    />
+                                ))}
+                                <span className="ms-2">({product.numOfReviews} Reviews)</span>
+                            </p>
 
-                                <hr />
-                                <h5>$ {product.price}</h5>
+                            <h5 className="text-success">$ {product.price}</h5>
+                            <hr />
 
-                                <div className="d-flex align-items-center gap-2">
-                                    <button className="btn btn-danger text-light" onClick={decreaseQty}><b>-</b></button>
-                                    {/* <h5 className="count">{quantity}</h5> */}
-                                    <input type="number" className="form-control count d-inline " style={{ width: '60px' }} value={quantity} readOnly />
-                                    <button className="btn btn-primary text-light" onClick={increaseQty}><b>+</b></button>
+                            {/* Quantity & Cart */}
+                            <div className="d-flex align-items-center gap-2 flex-wrap">
+                                <button className="btn btn-danger" onClick={decreaseQty}><b>-</b></button>
+                                <input
+                                    type="number"
+                                    className="form-control text-center"
+                                    style={{ width: "60px" }}
+                                    value={quantity}
+                                    readOnly
+                                />
+                                <button className="btn btn-primary" onClick={increaseQty}><b>+</b></button>
 
-                                    <button className="btn btn-warning"
-                                        disabled={product.stock == 0 ? true : false}
-                                        onClick={() => {
-                                            dispatch(addCartItem(product._id, quantity));
-                                            toast('Product added to cart', {
-                                                type: 'success',
-                                                position: 'top-center'
-                                            });
-                                        }}
-                                    >
-                                        Add to Cart
-                                    </button>
-
-                                </div>
-                                <hr />
-                                <p>Status: <b>{product.stock > 0 ? 'In Stock' : 'Out of Stock'}</b></p>
-                                <hr />
-                                <h4>Description</h4>
-                                <p className="text-break">{product.description}</p>
-                                <hr />
-                                <p>Sold by: <b>{product.seller}</b></p>
+                                <button
+                                    className="btn btn-warning"
+                                    disabled={product.stock === 0}
+                                    onClick={() => {
+                                        dispatch(addCartItem(product._id, quantity));
+                                        toast('Product added to cart', {
+                                            type: 'success',
+                                            position: 'top-center',
+                                        });
+                                    }}
+                                >
+                                    Add to Cart
+                                </button>
                             </div>
-                            {user ? 
-                            <button className="btn btn-warning" onClick={handleShow}>Submit Your Review</button> :
-                            <div className="bg-danger opacity-75 text-light rounded p-2">Login to Post the Review</div>
-                            }
 
+                            <p className="mt-3">
+                                Status: <b>{product.stock > 0 ? 'In Stock' : 'Out of Stock'}</b>
+                            </p>
+
+                            <hr />
+                            <h4>Description</h4>
+                            <p className="text-break">{product.description}</p>
+
+                            <p><b>Sold by:</b> {product.seller}</p>
+
+                            {/* Review Button or Login Prompt */}
+                            {user ? (
+                                <button className="btn btn-outline-warning mt-3" onClick={handleShow}>
+                                    Submit Your Review
+                                </button>
+                            ) : (
+                                <div className="bg-danger text-light p-2 rounded mt-3">Login to post a review</div>
+                            )}
                         </div>
 
+                        {/* Review Modal */}
                         <Modal show={show} onHide={handleClose}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Submit Review</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body><h1>{[1, 2, 3, 4, 5].map((index) => (
-                                <i
-                                    key={index}
-                                    className={index <= (hover || rating) ? "bi bi-star-fill" : "bi bi-star"}
-                                    style={{ color: "#ffc107", cursor: "pointer", fontSize: "24px" }}
-                                    onClick={() => setRating(index)}
-                                    onMouseEnter={() => setHover(index)}
-                                    onMouseLeave={() => setHover(null)}
-                                ></i>
-                            ))}</h1><hr />
-                                <textarea name="review"
+                            <Modal.Body>
+                                <div className="text-center">
+                                    {[1, 2, 3, 4, 5].map(index => (
+                                        <i
+                                            key={index}
+                                            className={index <= (hover || rating) ? "bi bi-star-fill" : "bi bi-star"}
+                                            style={{ color: "#ffc107", cursor: "pointer", fontSize: "24px" }}
+                                            onClick={() => setRating(index)}
+                                            onMouseEnter={() => setHover(index)}
+                                            onMouseLeave={() => setHover(null)}
+                                        />
+                                    ))}
+                                </div>
+                                <textarea
+                                    name="review"
                                     id="review"
                                     className="form-control mt-3"
+                                    rows={4}
+                                    placeholder="Write your review..."
                                     onChange={(e) => setComment(e.target.value)}
-                                >
-
-                                </textarea>
+                                />
                             </Modal.Body>
                             <Modal.Footer>
-                                {/* <Button variant="secondary" onClick={handleClose}>
-                                    Close
-                                </Button> */}
                                 <Button variant="primary" onClick={handleReview}>
                                     Submit
                                 </Button>
                             </Modal.Footer>
                         </Modal>
-                        {product.reviews && product.reviews.length > 0 ? 
-                        <ProductReview reviews={product.reviews} /> : null   
-                        }
+
+                        {/* Display Reviews */}
+                        {product.reviews?.length > 0 && (
+                            <div className="mt-4">
+                                <ProductReview reviews={product.reviews} />
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
+
         </>
     )
 }

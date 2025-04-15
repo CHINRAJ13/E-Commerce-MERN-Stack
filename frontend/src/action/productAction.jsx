@@ -2,10 +2,14 @@ import axios from 'axios'
 import { createReviewFail, createReviewRequest, createReviewSuccess, deleteProductFail, deleteProductRequest, deleteProductSuccess, deleteReviewFail, deleteReviewRequest, deleteReviewSuccess, newProductFail, newProductRequest, newProductSuccess, productFail, productRequest, productSuccess, reviewsFail, reviewsRequest, reviewsSuccess, updateProductFail, updateProductRequest, updateProductSuccess } from '../slice/productSlice'
 import { adminProductsFail, adminProductsRequest, adminProductsSuccess, productsFail, productsRequest, productsSuccess } from '../slice/productsSlice'
 
+const BackendUrl = `https://e-commerce-mern-stack-6a10.onrender.com`;
+
+axios.defaults.withCredentials = true;
+
 export const getProduct = (id) => async (dispatch) => {
     try {
         dispatch(productRequest());
-        const { data } = await axios.get(`http://localhost:4000/product/${id}`);
+        const { data } = await axios.get(`${BackendUrl}/product/${id}`);
         dispatch(productSuccess(data));
     } catch (error) {
         dispatch(productFail(error.response.data));
@@ -18,7 +22,7 @@ export const getProducts = (keyword, currentPage, category) => async (dispatch) 
     try {
         dispatch(productsRequest());
 
-        let link = `http://localhost:4000/product?page=${currentPage}`;
+        let link = `${BackendUrl}/product?page=${currentPage}`;
 
         if (keyword) {
             link += `&keyword=${keyword}`;
@@ -47,7 +51,7 @@ export const createReview = (reviewData) => async (dispatch) => {
             },
             withCredentials: true
         }
-        const { data } = await axios.put(`http://localhost:4000/product/reviews/:id`, reviewData, config);
+        const { data } = await axios.put(`${BackendUrl}/product/reviews/:id`, reviewData, config);
         dispatch(createReviewSuccess(data));
     } catch (error) {
         dispatch(createReviewFail(error.response.data));
@@ -61,7 +65,7 @@ export const getAdminProducts = async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        const { data } = await axios.get(`http://localhost:4000/product/admin/products`, config);
+        const { data } = await axios.get(`${BackendUrl}/product/admin/products`, config);
         dispatch(adminProductsSuccess(data));
     } catch (error) {
         dispatch(adminProductsFail(error.response.data))
@@ -79,7 +83,7 @@ export const createNewProducts = (product) => async (dispatch) => {
             },
             withCredentials: true
         }
-        const { data } = await axios.post(`http://localhost:4000/product/new`, product, config);
+        const { data } = await axios.post(`${BackendUrl}/product/new`, product, config);
         dispatch(newProductSuccess(data));
     } catch (error) {
         dispatch(newProductFail(error.response.data.error));
@@ -94,7 +98,7 @@ export const deleteProducts = (id) => async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        await axios.delete(`http://localhost:4000/product/${id}`, config);
+        await axios.delete(`${BackendUrl}/product/${id}`, config);
         dispatch(deleteProductSuccess());
     } catch (error) {
         dispatch(deleteProductFail(error.response.data.error));
@@ -112,7 +116,7 @@ export const updateProducts = (id, productData) => async (dispatch) => {
             },
             withCredentials: true
         }
-        const { data } = await axios.put(`http://localhost:4000/product/${id}`, productData, config);
+        const { data } = await axios.put(`${BackendUrl}/product/${id}`, productData, config);
         dispatch(updateProductSuccess(data));
     } catch (error) {
         dispatch(updateProductFail(error.response.data.error));
@@ -127,7 +131,7 @@ export const getReviews = (prodId) => async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        const { data } = await axios.get(`http://localhost:4000/product/reviews/${prodId}`, config);
+        const { data } = await axios.get(`${BackendUrl}/product/reviews/${prodId}`, config);
         dispatch(reviewsSuccess(data));
     } catch (error) {
         dispatch(reviewsFail(error.response.data.error));
@@ -142,7 +146,7 @@ export const deleteReview = (prodId, id) => async (dispatch) => {
             withCredentials: true,
             params :{ id}
         }
-        const { data } = await axios.delete(`http://localhost:4000/product/reviews/${prodId}`, config);
+        const { data } = await axios.delete(`${BackendUrl}/product/reviews/${prodId}`, config);
         dispatch(deleteReviewSuccess(data));
     } catch (error) {
         dispatch(deleteReviewFail(error.response.data.error));

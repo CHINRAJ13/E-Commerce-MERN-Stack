@@ -121,65 +121,74 @@ export const UpdateProduct = () => {
                 <div className="col-12 col-md-2">
                     <Sidebar />
                 </div>
+
                 <div className="col-12 col-md-10">
                     {/* <h3>Product List</h3> */}
-                    <div className="row d-flex justify-content-center align-items-center my-5">
-                        <div className="col-5 shadow-lg border rounded px-3">
-                            <form onSubmit={handleSubmit} >
-                                <h3 className="text-center pb-2">Update Product</h3>
-                                {/* Name of the Product */}
-                                <div className="form-floating mb-2">
-                                    <input type="text" className="form-control" id="name" placeholder="Name" name='name' value={name} onChange={(e) => setName(e.target.value)} />
-                                    <label htmlFor="name">Name</label>
+                    <div className="row justify-content-center align-items-center my-5">
+                        <div className="col-md-6 shadow p-4 rounded bg-white">
+                            <form onSubmit={handleSubmit}>
+                                <h3 className="text-center mb-4 fw-bold text-primary">Update Product</h3>
+
+                                {/* Product Name */}
+                                <div className="form-floating mb-3">
+                                    <input type="text" className="form-control" id="name" placeholder="Product Name" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+                                    <label htmlFor="name">Product Name</label>
                                 </div>
-                                {/* Price of the Product */}
-                                <div className="form-floating mb-2">
-                                    <input type="number" className="form-control" id="price" placeholder="Price" name='price' value={price} onChange={(e) => setPrice(e.target.value)} />
+
+                                {/* Price */}
+                                <div className="form-floating mb-3">
+                                    <input type="number" className="form-control" id="price" placeholder="Price" name="price" value={price} onChange={(e) => setPrice(e.target.value)} />
                                     <label htmlFor="price">Price</label>
                                 </div>
-                                {/* Description of the Product */}
-                                <div className="form-floating mb-2">
-                                    <textarea type="text" className="form-control" id="description" placeholder="Description" name='description' value={description} onChange={(e) => setDescription(e.target.value)} />
+
+                                {/* Description */}
+                                <div className="form-floating mb-3">
+                                    <textarea className="form-control" id="description" placeholder="Description" name="description" style={{ height: '100px' }} value={description} onChange={(e) => setDescription(e.target.value)} />
                                     <label htmlFor="description">Description</label>
                                 </div>
-                                {/* Category of the Product */}
-                                <div className="form-floating mb-2">
+
+                                {/* Category */}
+                                <div className="form-floating mb-3">
                                     <select className="form-select" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
                                         <option value="" disabled>Select the Category</option>
                                         {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
                                     </select>
                                     <label htmlFor="category">Category</label>
                                 </div>
-                                {/* Stock of the Product */}
-                                <div className="form-floating mb-2">
-                                    <input type="number" className="form-control" id="stock" placeholder="Stock" name='stock' value={stock} onChange={(e) => setStock(e.target.value)} />
+
+                                {/* Stock */}
+                                <div className="form-floating mb-3">
+                                    <input type="number" className="form-control" id="stock" placeholder="Stock" name="stock" value={stock} onChange={(e) => setStock(e.target.value)} />
                                     <label htmlFor="stock">Stock</label>
                                 </div>
-                                {/* Seller Name of the Product */}
-                                <div className="form-floating mb-2">
-                                    <input type="text" className="form-control" id="sellerName" placeholder="sellerName" name='sellerName' value={seller} onChange={(e) => setSeller(e.target.value)} />
+
+                                {/* Seller Name */}
+                                <div className="form-floating mb-3">
+                                    <input type="text" className="form-control" id="sellerName" placeholder="Seller Name" name="sellerName" value={seller} onChange={(e) => setSeller(e.target.value)} />
                                     <label htmlFor="sellerName">Seller Name</label>
                                 </div>
-                                {/* Images of the Product */}
-                                <div className="form-floating mb-2">
+
+                                {/* Images Upload */}
+                                <div className="mb-3">
+                                    <label className="form-label fw-semibold">Product Images</label>
                                     <input type="file" className="form-control" id="images" multiple onChange={onImagesChange} />
-                                    <label htmlFor="images">Images</label>
-                                    {imagesPreview.length > 0 && <span className="mr-2" onClick={handleImagesCleared} style={{ cursor: 'pointer' }}><i className="bi bi-trash3"></i></span>}
-                                    {imagesPreview.length > 0 && imagesPreview.map(image => (
-                                        <img
-                                            key={image}
-                                            className="mt-3 mr-2"
-                                            src={image}
-                                            alt="Preview"
-                                            height='52'
-                                            width='55'
-                                        />
-                                    ))}
+                                    {imagesPreview.length > 0 && (
+                                        <div className="d-flex flex-wrap gap-2 mt-3">
+                                            {imagesPreview.map((image, index) => (
+                                                <div key={index} className="position-relative">
+                                                    <img src={image} alt={`Preview ${index}`} height="60" width="60" className="rounded border" />
+                                                    <i className="bi bi-x-circle-fill text-danger position-absolute top-0 end-0" style={{ cursor: 'pointer', transform: 'translate(40%, -40%)' }} onClick={handleImagesCleared}></i>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
 
-
-                                <div className="d-grid col-3 mx-auto my-2">
-                                    <button className="btn btn-primary text-center" disabled={loading} type="submit" >Update</button>
+                                {/* Submit Button */}
+                                <div className="d-grid mt-4">
+                                    <button className="btn btn-primary fw-bold" disabled={loading} type="submit">
+                                        {loading ? 'Updating...' : 'Update Product'}
+                                    </button>
                                 </div>
                             </form>
                         </div>

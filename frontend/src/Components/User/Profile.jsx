@@ -13,36 +13,59 @@ export const Profile = () => {
 
     return (
         <>
-        <MetaData title={'User Profile'} />
-            {user &&
-                <>
-                    <h2>User Profile</h2>
-                    <div className="row gap-5">
-                        <div className="col-5 d-flex flex-column">
-                            <img src={user.avatar} alt="Image" className=" mb-3" style={{ borderRadius: '50%' }} height={300} width={300} />
-                            <button className="btn btn-warning" onClick={() => navigate('/myprofile/update')}>Edit Profile</button>
+            <MetaData title={'User Profile'} />
+            <div className="container my-5">
+                {user && (
+                    <>
+                        <h3 className="text-center mb-4">USER PROFILE</h3>
+                        <div className="row justify-content-center align-items-start g-5">
+                            <div className="col-12 col-md-5 d-flex flex-column align-items-center">
+                                <img
+                                    src={user.avatar}
+                                    alt="Profile"
+                                    className="img-fluid mb-3"
+                                    style={{ borderRadius: '50%', width: '250px', height: '250px', objectFit: 'cover' }}
+                                />
+                                <button
+                                    className="btn btn-warning w-100"
+                                    onClick={() => navigate('/myprofile/update')}
+                                >
+                                    Edit Profile
+                                </button>
+                            </div>
+                            <div className="col-12 col-md-6">
+                                <div className="mb-4">
+                                    <h5>Full Name</h5>
+                                    <p>{user.name}</p>
+                                </div>
+                                <div className="mb-4">
+                                    <h5>Email Address</h5>
+                                    <p>{user.email}</p>
+                                </div>
+                                <div className="mb-4">
+                                    <h5>Created At</h5>
+                                    <p>{String(user.createdAt).substring(0, 10)}</p>
+                                </div>
+                                <div className="d-grid gap-3 mt-4">
+                                    <button
+                                        className="btn btn-danger"
+                                        onClick={() => navigate('/orders')}
+                                    >
+                                        My Orders
+                                    </button>
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={() => navigate('/password/change')}
+                                    >
+                                        Change Password
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-5 d-flex flex-column justify-content-around">
-                            <div>
-                                <h4>Full Name</h4>
-                                <p>{user.name}</p>
-                            </div>
-                            <div>
-                                <h4>Email Address</h4>
-                                <p>{user.email}</p>
-                            </div>
-                            <div>
-                                <h4>Created At</h4>
-                                <p>{String(user.createdAt).substring(0,10)}</p>
-                            </div>
-                            <div className="d-flex flex-column gap-3">
-                                <button className="btn btn-danger" onClick={() => navigate('/orders')}>My Order</button>
-                                <button className="btn btn-primary" onClick={() => navigate('/password/change')}>Change Password</button>
-                            </div>
-                        </div>
-                    </div>
-                </>
-            }
+                    </>
+                )}
+            </div>
+
         </>
     )
 }

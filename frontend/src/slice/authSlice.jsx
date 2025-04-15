@@ -18,7 +18,8 @@ const authSlice = createSlice({
             return {
                 loading: false,
                 isAuthenticated: true,
-                user: action.payload.user
+                user: action.payload.user,
+                token: action.payload.token
             }
         },
         loginFail(state, action) {
@@ -44,7 +45,8 @@ const authSlice = createSlice({
             return {
                 loading: false,
                 isAuthenticated: true,
-                user: action.payload.user
+                user: action.payload.user,
+                token: action.payload.token
             }
         },
         registerFail(state, action) {
@@ -65,14 +67,15 @@ const authSlice = createSlice({
             return {
                 loading: false,
                 isAuthenticated: true,
-                user: action.payload.user
+                user: action.payload.user,
+                token: action.payload.token
             }
         },
         loadUserFail(state, action) {
             return {
                 ...state,
                 loading: false,
-                // error: action.payload
+                error: action.payload
             }
         },
         logoutSuccess(state, action) {

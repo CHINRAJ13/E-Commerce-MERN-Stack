@@ -93,73 +93,155 @@ export const NewProduct = () => {
         <>
             <MetaData title={'Create New Product'} />
             <div className="row">
-                <div className="col-12 col-md-2">
-                    <Sidebar />
-                </div>
-                <div className="col-12 col-md-10">
-                    {/* <h3>Product List</h3> */}
-                    <div className="row d-flex justify-content-center align-items-center my-5">
-                        <div className="col-5 shadow-lg border rounded px-3">
-                            <form onSubmit={handleSubmit} >
-                                <h3 className="text-center pb-2">New Product</h3>
-                                {/* Name of the Product */}
-                                <div className="form-floating mb-2">
-                                    <input type="text" className="form-control" id="name" placeholder="Name" name='name' value={name} onChange={(e) => setName(e.target.value)} />
-                                    <label htmlFor="name">Name</label>
-                                </div>
-                                {/* Price of the Product */}
-                                <div className="form-floating mb-2">
-                                    <input type="number" className="form-control" id="price" placeholder="Price" name='price' value={price} onChange={(e) => setPrice(e.target.value)} />
-                                    <label htmlFor="price">Price</label>
-                                </div>
-                                {/* Description of the Product */}
-                                <div className="form-floating mb-2">
-                                    <textarea type="text" className="form-control" id="description" placeholder="Description" name='description' value={description} onChange={(e) => setDescription(e.target.value)} />
-                                    <label htmlFor="description">Description</label>
-                                </div>
-                                {/* Category of the Product */}
-                                <div className="form-floating mb-2">
-                                    <select className="form-select" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
-                                        <option value="" disabled>Select the Category</option>
-                                        {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-                                    </select>
-                                    <label htmlFor="category">Category</label>
-                                </div>
-                                {/* Stock of the Product */}
-                                <div className="form-floating mb-2">
-                                    <input type="number" className="form-control" id="stock" placeholder="Stock" name='stock' value={stock} onChange={(e) => setStock(e.target.value)} />
-                                    <label htmlFor="stock">Stock</label>
-                                </div>
-                                {/* Seller Name of the Product */}
-                                <div className="form-floating mb-2">
-                                    <input type="text" className="form-control" id="sellerName" placeholder="sellerName" name='sellerName' value={seller} onChange={(e) => setSeller(e.target.value)} />
-                                    <label htmlFor="sellerName">Seller Name</label>
-                                </div>
-                                {/* Images of the Product */}
-                                <div className="form-floating mb-2">
-                                    <input type="file" className="form-control" id="images" multiple onChange={onImagesChange} />
-                                    <label htmlFor="images">Images</label>
-                                    {(imagesPreview || []).map(image => (
-                                        <img
-                                            key={image}
-                                            className="mt-3 mr-2"
-                                            src={image}
-                                            alt="Preview"
-                                            height='52'
-                                            width='55'
-                                        />
-                                    ))}
-                                </div>
+  <div className="col-12 col-md-2">
+    <Sidebar />
+  </div>
+  <div className="col-12 col-md-10">
+    <div className="row justify-content-center align-items-center my-5">
+      <div className="col-12 col-md-6 shadow-lg border rounded p-4 bg-white">
+        <form onSubmit={handleSubmit}>
+          <h3 className="text-center pb-3">Add New Product</h3>
 
+          {/* Product Name */}
+          <div className="form-floating mb-3">
+            <input
+              type="text"
+              className="form-control"
+              id="name"
+              placeholder="Name"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <label htmlFor="name">Product Name</label>
+          </div>
 
-                                <div className="d-grid col-3 mx-auto my-2">
-                                    <button className="btn btn-primary text-center" disabled={loading} type="submit" >Create</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+          {/* Product Price */}
+          <div className="form-floating mb-3">
+            <input
+              type="number"
+              className="form-control"
+              id="price"
+              placeholder="Price"
+              name="price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+              min="0"
+            />
+            <label htmlFor="price">Price</label>
+          </div>
+
+          {/* Description */}
+          <div className="form-floating mb-3">
+            <textarea
+              className="form-control"
+              placeholder="Description"
+              id="description"
+              name="description"
+              style={{ height: '100px' }}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            ></textarea>
+            <label htmlFor="description">Description</label>
+          </div>
+
+          {/* Category */}
+          <div className="form-floating mb-3">
+            <select
+              className="form-select"
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+            >
+              <option value="" disabled>
+                Select a Category
+              </option>
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+            <label htmlFor="category">Category</label>
+          </div>
+
+          {/* Stock */}
+          <div className="form-floating mb-3">
+            <input
+              type="number"
+              className="form-control"
+              id="stock"
+              placeholder="Stock"
+              name="stock"
+              value={stock}
+              onChange={(e) => setStock(e.target.value)}
+              required
+              min="0"
+            />
+            <label htmlFor="stock">Stock</label>
+          </div>
+
+          {/* Seller Name */}
+          <div className="form-floating mb-3">
+            <input
+              type="text"
+              className="form-control"
+              id="sellerName"
+              placeholder="Seller Name"
+              name="sellerName"
+              value={seller}
+              onChange={(e) => setSeller(e.target.value)}
+              required
+            />
+            <label htmlFor="sellerName">Seller Name</label>
+          </div>
+
+          {/* Images */}
+          <div className="mb-3">
+            <label htmlFor="images" className="form-label">
+              Upload Images
+            </label>
+            <input
+              type="file"
+              className="form-control"
+              id="images"
+              multiple
+              onChange={onImagesChange}
+            />
+            <div className="d-flex flex-wrap gap-2 mt-2">
+              {(imagesPreview || []).map((image, index) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt="Preview"
+                  height="52"
+                  width="55"
+                  style={{ borderRadius: '4px' }}
+                />
+              ))}
             </div>
+          </div>
+
+          {/* Submit Button */}
+          <div className="d-grid mt-4">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? "Creating..." : "Create Product"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
         </>
     )
 }

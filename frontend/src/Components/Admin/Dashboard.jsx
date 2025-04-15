@@ -40,47 +40,55 @@ export const Dashboard = () => {
     return (
         <>
         <MetaData title={`Admin Dashboard`} />
-            <div className="row">
-                <div className="col-12 col-md-2">
-                    <Sidebar />
-                </div>
-                <div className="col-12 col-md-10">
-                    <h3>Dashboard</h3>
-                    <div className="row m-3">
-                        <div className="col-12 bg-primary rounded p-3">
-                            <h5 className="text-center">Total Price</h5>
-                            <h6 className="text-center">$ {totalAmount}</h6>
-                        </div>
-                    </div>
+        <div className="row">
+    <div className="col-12 col-md-2">
+        <Sidebar />
+    </div>
+    <div className="col-12 col-md-10">
+        <h3 className="mt-3 mb-4">Dashboard</h3>
 
-                    <div className="row m-3 justify-content-between">
-                        <div className="col-12 col-md-2 bg-warning rounded py-2">
-                            <h5 className="text-center">Products</h5>
-                            <h6 className="text-center">{products.length}</h6>
-                            <hr />
-                            <Link to={`/admin/allproducts`} className="btn">View Details</Link>
-                        </div>
-                        <div className="col-12 col-md-2 bg-danger rounded py-2">
-                            <h5 className="text-center">Orders</h5>
-                            <h6 className="text-center">{adminOrders.length}</h6>
-                            <hr />
-                            <Link to={`/admin/orders`} className="btn">View Details</Link>
-                        </div>
-                        <div className="col-12 col-md-2 bg-success rounded py-2">
-                            <h5 className="text-center">Users</h5>
-                            <h6 className="text-center">{users.length}</h6>
-                            <hr />
-                            <Link to={`/admin/users`} className="btn">View Details</Link>
-                        </div>
-                        <div className="col-12 col-md-2 bg-primary rounded py-2">
-                            <h5 className="text-center">Out Of Stock</h5>
-                            <h6 className="text-center">{outOfStocks}</h6>
-                            {/* <hr /> */}
-                            {/* <Link className="btn">View Details</Link> */}
-                        </div>
-                    </div>
+        <div className="row mb-4">
+            <div className="col-12 bg-primary text-white rounded p-4 shadow-sm">
+                <h5 className="text-center">Total Revenue</h5>
+                <h4 className="text-center">$ {totalAmount}</h4>
+            </div>
+        </div>
+
+        <div className="row g-4">
+            <div className="col-12 col-md-3">
+                <div className="bg-warning text-dark rounded p-3 text-center shadow-sm">
+                    <h5>Products</h5>
+                    <h6>{products.length}</h6>
+                    <hr />
+                    <Link to="/admin/allproducts" className="btn btn-outline-dark btn-sm">View Details</Link>
                 </div>
             </div>
+            <div className="col-12 col-md-3">
+                <div className="bg-danger text-white rounded p-3 text-center shadow-sm">
+                    <h5>Orders</h5>
+                    <h6>{adminOrders.length}</h6>
+                    <hr />
+                    <Link to="/admin/orders" className="btn btn-outline-light btn-sm">View Details</Link>
+                </div>
+            </div>
+            <div className="col-12 col-md-3">
+                <div className="bg-success text-white rounded p-3 text-center shadow-sm">
+                    <h5>Users</h5>
+                    <h6>{users.length}</h6>
+                    <hr />
+                    <Link to="/admin/users" className="btn btn-outline-light btn-sm">View Details</Link>
+                </div>
+            </div>
+            <div className="col-12 col-md-3">
+                <div className="bg-primary text-white rounded p-3 text-center shadow-sm">
+                    <h5>Out of Stock</h5>
+                    <h6>{outOfStocks}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
         </>
     )
 }

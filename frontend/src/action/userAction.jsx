@@ -1,18 +1,26 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
 import { clearError, forgotPasswordFail, forgotPasswordRequest, forgotPasswordSuccess, loadUserFail, loadUserRequest, loadUserSuccess, loginFail, loginRequest, loginSuccess, logoutFail, logoutSuccess, registerFail, registerRequest, registerSuccess, resetPasswordFail, resetPasswordRequest, resetPasswordSuccess, updatePasswordFail, updatePasswordRequest, updatePasswordSuccess, updateProfileClear, updateProfileFail, updateProfileRequest, updateProfileSuccess } from "../slice/authSlice"
 import { deleteUserFail, deleteUserRequest, deleteUserSuccess, updateUserFail, updateUserRequest, updateUserSuccess, userFail, userRequest, usersFail, usersRequest, usersSuccess, userSuccess } from '../slice/userSlice';
 
+const BackendUrl = `https://e-commerce-mern-stack-6a10.onrender.com`;
+
+axios.defaults.withCredentials = true;
 
 export const login = (email, password) => async (dispatch) => {
     try {
         dispatch(loginRequest());
-        // const config = {
-        //     withCredentials: true
-        // }
-        const { data } = await axios.post(`http://localhost:4000/users/login`, { email, password });
+        const config = {
+            withCredentials: true
+        }
+        const { data } = await axios.post(`${BackendUrl}/users/login`, { email, password }, config);
+        // Cookies.set("token", data.token);
+        console.log(data)
         dispatch(loginSuccess(data));
     } catch (error) {
         dispatch(loginFail(error.response.data));
+        console.log(error);
+        
     }
 }
 
@@ -30,11 +38,12 @@ export const register = (userData) => async (dispatch) => {
             },
             withCredentials: true
         }
-        const { data } = await axios.post(`http://localhost:4000/users/register`, userData, config);
+        const { data } = await axios.post(`${BackendUrl}/users/register`, userData, config);
+        // Cookies.set("token", data.token);
         dispatch(registerSuccess(data));
     } catch (error) {
         dispatch(registerFail(error.response.data));
-        // console.log(error)
+        console.log(error)
     }
 }
 
@@ -45,11 +54,12 @@ export const loadUser = async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        const { data } = await axios.get(`http://localhost:4000/users/myprofile`, config);
+        const { data } = await axios.get(`${BackendUrl}/users/myprofile`,config);
+        // Cookies.get("token");
         dispatch(loadUserSuccess(data));
     } catch (error) {
         dispatch(loadUserFail(error.response.data.message));
-        // console.log(error)
+        // console.log(error.response.data.message)
     }
 }
 
@@ -59,11 +69,11 @@ export const logout = async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        await axios.get(`http://localhost:4000/users/logout`, config);
+        await axios.get(`${BackendUrl}/users/logout`, config);
         dispatch(logoutSuccess());
     } catch (error) {
         dispatch(logoutFail(error.response.data));
-        // console.log(error)
+        console.log(error)
     }
 }
 
@@ -77,7 +87,7 @@ export const updateProfile = (userData) => async (dispatch) => {
             },
             withCredentials: true
         }
-        const { data } = await axios.put(`http://localhost:4000/users/myprofile/update`, userData, config);
+        const { data } = await axios.put(`${BackendUrl}/users/myprofile/update`, userData, config);
         dispatch(updateProfileSuccess(data));
     } catch (error) {
         dispatch(updateProfileFail(error.response.data));
@@ -100,7 +110,7 @@ export const updatePassword = (userData) => async (dispatch) => {
             },
             withCredentials: true
         }
-        await axios.put(`http://localhost:4000/users/password/change`, userData, config);
+        await axios.put(`${BackendUrl}/users/password/change`, userData, config);
         dispatch(updatePasswordSuccess());
     } catch (error) {
         dispatch(updatePasswordFail(error.response.data));
@@ -115,7 +125,7 @@ export const forgotPassword = (email) => async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        const { data } = await axios.post(`http://localhost:4000/users/password/forgot`, { email }, config);
+        const { data } = await axios.post(`${BackendUrl}/users/password/forgot`, { email }, config);
         dispatch(forgotPasswordSuccess(data));
     } catch (error) {
         dispatch(forgotPasswordFail(error.response.data));
@@ -134,7 +144,7 @@ export const resetPassword = (userData, token) => async (dispatch) => {
             withCredentials: true
         }
 
-        const { data } = await axios.post(`http://localhost:4000/users/password/reset/${token}`, userData, config);
+        const { data } = await axios.post(`${BackendUrl}/users/password/reset/${token}`, userData, config);
         dispatch(resetPasswordSuccess(data));
     } catch (error) {
         dispatch(resetPasswordFail(error.response.data));
@@ -149,7 +159,7 @@ export const getUsers = async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        const { data } = await axios.get(`http://localhost:4000/users/admin/users`, config);
+        const { data } = await axios.get(`${BackendUrl}/users/admin/users`, config);
         dispatch(usersSuccess(data));
     } catch (error) {
         dispatch(usersFail(error.response.data.message));
@@ -163,7 +173,7 @@ export const getSingleUser = (userId) => async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        const { data } = await axios.get(`http://localhost:4000/users/admin/${userId}`, config);
+        const { data } = await axios.get(`${BackendUrl}/users/admin/${userId}`, config);
         dispatch(userSuccess(data));
     } catch (error) {
         dispatch(userFail(error.response.data.message));
@@ -178,7 +188,7 @@ export const deleteUser = (userId) => async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        await axios.delete(`http://localhost:4000/users/admin/${userId}`, config);
+        await axios.delete(`${BackendUrl}/users/admin/${userId}`, config);
         dispatch(deleteUserSuccess());
     } catch (error) {
         dispatch(deleteUserFail(error.response.data.message));
@@ -193,7 +203,7 @@ export const updateUser = (userId, formData) => async (dispatch) => {
         const config = {
             withCredentials: true
         }
-        await axios.put(`http://localhost:4000/users/admin/${userId}`, formData, config);
+        await axios.put(`${BackendUrl}/users/admin/${userId}`, formData, config);
         dispatch(updateUserSuccess());
     } catch (error) {
         dispatch(updateUserFail(error.response.data.message));
