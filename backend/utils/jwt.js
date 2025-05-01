@@ -5,15 +5,15 @@ const sendToken = ( user, statusCode, res ) => {
     // Creating the token
     const token = user.getJwtToken();
 
-    const serialized = cookie.serialize('token', token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 24 * 7
-    });
+    // const serialized = cookie.serialize('token', token, {
+    //   httpOnly: true,
+    //   secure: true,
+    //   sameSite: 'lax',
+    //   path: '/',
+    //   maxAge: 60 * 60 * 24 * 7
+    // });
     
-    res.setHeader('Set-Cookie', serialized);
+    // res.setHeader('Set-Cookie', serialized);
 
 
     // setting cookies
@@ -21,7 +21,7 @@ const sendToken = ( user, statusCode, res ) => {
         expires: new Date(Date.now() + process.env.COOKIE_EXPIRE_TIME *24 *60 *60 *1000),
         httpOnly: true,
         secure: true,
-        sameSite: "lax"
+        sameSite: "None"
     }
 
     res.status(statusCode)
